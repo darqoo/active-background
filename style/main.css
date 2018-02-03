@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "Raleway-regular";
+    src: url("../fonts/Raleway-v4020-Regular.otf");
+}
+
+@font-face {
+    font-family: "Raleway-bold";
+    src: url("../fonts/Raleway-v4020-Bold.otf");
+}
+
 body {
     position: relative;
     overflow-x: hidden;
