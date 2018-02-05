@@ -1,5 +1,5 @@
 (function () {
-  $("#pag2e_top").animate({
+  $("#page_top").animate({
     opacity: 0
   }, 5000
 );
