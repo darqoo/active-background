@@ -26,39 +26,39 @@ function active_bg() {
     function() {
       $("#bg_2").animate({
           opacity: 0
-        }, 5000,
+        }, 4000,
         function() {
           $("#bg_3").animate({
               opacity: 0
-            }, 5000,
+            }, 4000,
             function() {
               $("#bg_4").animate({
                   opacity: 0
-                }, 5000,
+                }, 4000,
                 function() {
                   $("#bg_5").animate({
                       opacity: 0
-                    }, 5000,
+                    }, 4000,
                     function() {
                       $("#bg_6").animate({
                           opacity: 0
-                        }, 5000,
+                        }, 4000,
                         function() {
                           $("#bg_7").animate({
                               opacity: 0
-                            }, 5000,
+                            }, 4000,
                             function() {
                               $("#bg_8").animate({
                                   opacity: 0
-                                }, 5000,
+                                }, 4000,
                                 function() {
                                   $("#bg_9").animate({
                                       opacity: 0
-                                    }, 5000,
+                                    }, 4000,
                                     function() {
                                       $("#bg_10").animate({
                                           opacity: 0
-                                        }, 5000,
+                                        }, 4000,
                                         function() {
                                           $("#bg_11").animate({
                                               opacity: 0
