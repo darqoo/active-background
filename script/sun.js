@@ -324,3 +324,10 @@ var luty = {
     z: '17:02'
   }
 }
+
+
+
+var w = parseInt(luty.d1.w.slice(0,2))*60+(parseInt(luty.d1.w.slice(3,5)));
+var z = parseInt(luty.d1.z.slice(0,2))*60+(parseInt(luty.d1.z.slice(3,5)));
+
+var d = z - w;
