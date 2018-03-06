@@ -66,7 +66,7 @@ function active_bg() {
                                             function() {
                                               $("#bg_1").animate({
                                                   opacity: 1
-                                                }, 5000,
+                                                }, 15000,
                                                 function() {
                                                   $("#bg_2, #bg_3, #bg_4, #bg_5, #bg_6, #bg_7, #bg_8, #bg_9, #bg_10, #bg_11, #bg_12").css({
                                                     opacity: 1
