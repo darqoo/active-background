@@ -106,7 +106,7 @@ function imageForTimeOfDay() {
   //wschod slonca w minutach od polnocy
   var timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0, 2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3, 5));
   //długosc dnia dla jednego obrazka w minutach
-  var lengthTimeForImage = todayDayLength / 10;
+  var lengthTimeForImage = todayDayLength / 9;
   //o ile ma zmienic sie opacity dla interwalu, bez jednostki
   var pieceOfOpacity = 1 / (lengthTimeForImage / timeOfInterval);
   //obecny czas w minutach
@@ -114,19 +114,19 @@ function imageForTimeOfDay() {
   //obecny czas w minutach liczony od wschodu slonca
   var presentTimeFromSunrise = presentTime - timeOfSunrise;
   //wybiera numer obrazka i generuje jego sciezke
-  var numerOfImage = Math.floor(presentTimeFromSunrise / lengthTimeForImage);
+  var numberOfImage = presentTimeFromSunrise < lengthTimeForImage && presentTimeFromSunrise >= 0 ? 1 : (Math.floor(presentTimeFromSunrise / lengthTimeForImage)) + 1;
   var opacity = 1 - (((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity);
   if (presentTime >= timeOfSunrise && presentTime <= (timeOfSunrise + todayDayLength)) {
     return {
       srcUnder: (function() {
-        return 'url(\'./images/active_bg/' + (numerOfImage + 1) + '.jpg\')'
+        return 'url(\'./images/active_bg/' + (numberOfImage + 1) + '.jpg\')'
       })(),
       srcAbove: (function() {
-        return 'url(\'./images/active_bg/' + (numerOfImage) + '.jpg\')'
+        return 'url(\'./images/active_bg/' + (numberOfImage) + '.jpg\')'
       })(),
       opacity
     }
-  } else if (presentTime => (timeOfSunrise + todayDayLength) && presentTime <= (timeOfSunrise + todayDayLength + 30)) {
+  } else if (presentTime >= (timeOfSunrise + todayDayLength) && presentTime <= (timeOfSunrise + todayDayLength + 30)) {
     return {
       srcUnder: (function() {
         return 'url(\'./images/active_bg/11.jpg\')'
@@ -138,7 +138,7 @@ function imageForTimeOfDay() {
         return (30 - (presentTime - timeOfSunrise - todayDayLength)) / 30
       })()
     }
-  } else if (presentTime => (timeOfSunrise + todayDayLength + 30) && presentTime <= (timeOfSunrise + todayDayLength + 30 + 60)) {
+  } else if (presentTime >= (timeOfSunrise + todayDayLength + 30) && presentTime <= (timeOfSunrise + todayDayLength + 30 + 60)) {
     return {
       srcUnder: (function() {
         return 'url(\'./images/active_bg/12.jpg\')'
@@ -150,7 +150,7 @@ function imageForTimeOfDay() {
         return (60 - (presentTime - timeOfSunrise - todayDayLength - 30)) / 60
       })()
     }
-  } else if (presentTime => (timeOfSunrise - 60) && presentTime <= timeOfSunrise) {
+  } else if (presentTime >= (timeOfSunrise - 60) && presentTime <= timeOfSunrise) {
     return {
       srcUnder: (function() {
         return 'url(\'./images/active_bg/1.jpg\')'
