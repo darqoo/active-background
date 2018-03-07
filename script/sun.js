@@ -43,23 +43,24 @@ function timeOfDay() {
   }
 }
 
-function calculatingTheNumberOfTheDisplayedImage() {
-  //dłogosc dnia w minutach
-  var todayDayLength = dayLengthOfMonth[timeOfDay().month][timeOfDay().day];
-  //wschod slonca w minutach od polnocy
-  var timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0, 2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3, 5));
-  //długosc dnia dla jednego obrazka w minutach
-  var lengthTimeForImage = todayDayLength / 10;
-  //o ile ma zmienic sie opacity dla interwalu, bez jednostki
-  var pieceOfOpacity = 1 / (lengthTimeForImage / timeOfInterval);
-  //obecny czas w minutach
-  var presentTime = (timeOfDay().hour * 60) + (timeOfDay().minute);
-  //obecny czas w minutach liczony od wschodu slonca
-  var presentTimeFromSunrise = presentTime - timeOfSunrise;
-  //wybiera numer obrazka i generuje jego sciezke
-  function imageForTimeOfDay() {
-    var numerOfImage = Math.floor(presentTimeFromSunrise / lengthTimeForImage);
-    var opacity = 1 - (((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity);
+//dłogosc dnia w minutach
+var todayDayLength = dayLengthOfMonth[timeOfDay().month][timeOfDay().day];
+//wschod slonca w minutach od polnocy
+var timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0, 2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3, 5));
+//długosc dnia dla jednego obrazka w minutach
+var lengthTimeForImage = todayDayLength / 10;
+//o ile ma zmienic sie opacity dla interwalu, bez jednostki
+var pieceOfOpacity = 1 / (lengthTimeForImage / timeOfInterval);
+//obecny czas w minutach
+var presentTime = (timeOfDay().hour * 60) + (timeOfDay().minute);
+//obecny czas w minutach liczony od wschodu slonca
+var presentTimeFromSunrise = presentTime - timeOfSunrise;
+//wybiera numer obrazka i generuje jego sciezke
+function imageForTimeOfDay() {
+  var numerOfImage = Math.floor(presentTimeFromSunrise / lengthTimeForImage);
+  var opacity = 1 - (((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity);
+
+  if (presentTime >= timeOfSunrise && presentTime <= (timeOfSunrise + todayDayLength)) {
     return {
       srcUnder: (function() {
         return 'url(\'./images/active_bg/' + (numerOfImage + 1) + '.jpg\')'
@@ -69,15 +70,61 @@ function calculatingTheNumberOfTheDisplayedImage() {
       })(),
       opacity
     }
-  }
-  return imageForTimeOfDay();
+  } else if(presentTime => (timeOfSunrise + todayDayLength) && presentTime <= (timeOfSunrise + todayDayLength + 30)) {
+    return {
+      srcUnder: (function() {
+        return 'url(\'./images/active_bg/11.jpg\')'
+      })(),
+      srcAbove: (function() {
+        return 'url(\'./images/active_bg/10.jpg\')'
+      })(),
+      opacity: (function() {
+          return (30 - (presentTime - timeOfSunrise - todayDayLength)) / 30
+      })()
+    }
+  } else if(presentTime => (timeOfSunrise + todayDayLength + 30) && presentTime <= (timeOfSunrise + todayDayLength + 30 + 60)) {
+    return {
+      srcUnder: (function() {
+        return 'url(\'./images/active_bg/12.jpg\')'
+      })(),
+      srcAbove: (function() {
+        return 'url(\'./images/active_bg/11.jpg\')'
+      })(),
+      opacity: (function() {
+          return (60 - (presentTime - timeOfSunrise - todayDayLength - 30)) / 60
+      })()
+    }
+  } else if(presentTime => (timeOfSunrise - 60) && presentTime <= timeOfSunrise) {
+    return {
+      srcUnder: (function() {
+        return 'url(\'./images/active_bg/1.jpg\')'
+      })(),
+      srcAbove: (function() {
+        return 'url(\'./images/active_bg/12.jpg\')'
+      })(),
+      opacity: (function() {
+          return (timeOfSunrise - presentTime) / 60
+      })()
+    }
+  } else {
+      return {
+        srcUnder: (function() {
+          return null
+        })(),
+        srcAbove: (function() {
+          return 'url(\'./images/active_bg/12.jpg\')'
+        })(),
+        opacity: 1
+      }
+    }
+
 }
 
 $('#bg_1').css({
-  'background-image': calculatingTheNumberOfTheDisplayedImage().srcAbove,
-  'opacity': calculatingTheNumberOfTheDisplayedImage().opacity
+  'background-image': imageForTimeOfDay().srcAbove,
+  'opacity': imageForTimeOfDay().opacity
 });
 
 $('#bg_2').css({
-  'background-image': calculatingTheNumberOfTheDisplayedImage().srcUnder
+  'background-image': imageForTimeOfDay().srcUnder
 });
