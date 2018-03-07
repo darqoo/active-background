@@ -31,7 +31,7 @@ var sunrises = [
 ]
 
 var interval = 180000;
-var timeOfInterval = ( interval / 60 ) / 1000;
+var timeOfInterval = (interval / 60) / 1000;
 
 function timeOfDay() {
   var date = new Date();
@@ -47,7 +47,7 @@ function calculatingTheNumberOfTheDisplayedImage() {
   //dłogosc dnia w minutach
   var todayDayLength = dayLengthOfMonth[timeOfDay().month][timeOfDay().day];
   //wschod slonca w minutach od polnocy
-  var timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0,2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3,5));
+  var timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0, 2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3, 5));
   //długosc dnia dla jednego obrazka w minutach
   var lengthTimeForImage = todayDayLength / 10;
   //o ile ma zmienic sie opacity dla interwalu, bez jednostki
@@ -59,12 +59,25 @@ function calculatingTheNumberOfTheDisplayedImage() {
   //wybiera numer obrazka i generuje jego sciezke
   function imageForTimeOfDay() {
     var numerOfImage = Math.floor(presentTimeFromSunrise / lengthTimeForImage);
-    var opacity = ((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity;
+    var opacity = 1 - (((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity);
     return {
-      srcUnder: (function() {return '../images/active_bg/' + (numerOfImage + 1) + '.jpg'})(),
-      srcAbove: (function() {return '../images/active_bg/' + numerOfImage + '.jpg'})(),
+      srcUnder: (function() {
+        return 'url(\'./images/active_bg/' + (numerOfImage + 1) + '.jpg\')'
+      })(),
+      srcAbove: (function() {
+        return 'url(\'./images/active_bg/' + numerOfImage + '.jpg\')'
+      })(),
       opacity
     }
   }
   return imageForTimeOfDay();
 }
+
+$('#bg_1').css({
+  'background-image': calculatingTheNumberOfTheDisplayedImage().srcAbove,
+  'opacity': calculatingTheNumberOfTheDisplayedImage().opacity
+});
+
+$('#bg_2').css({
+  'background-image': calculatingTheNumberOfTheDisplayedImage().srcUnder
+});
