@@ -1,20 +1,68 @@
 var interval = 180000;
+var animation = 'stop';
+var testMinute = 1;
+var testHour = 1;
+
+function testClock() {
+  let tickingClock = setInterval(function() {
+    if (testMinute == 60) {
+      testMinute = 1;
+      testHour < 24 ? testHour += 1 : testHour = 0;
+    } else {
+      testMinute += 1;
+    }
+  }, 50);
+}
 
 renderBackground();
 
-setInterval(function() {
-  renderBackground();
-}, interval);
+function renderInterval(i) {
+  clearInterval(renderInterval);
+  var renderInterval = setInterval(function() {
+    renderBackground();
+  }, i);
+}
 
-$('#check').click();
+// renderInterval(180000);
+
+$('#check').click(function() {
+  if (animation == 'start') {
+    $('#check').text('Check it out');
+    animation = 'stop';
+    renderInterval(180000);
+    renderBackground();
+  } else {
+    testClock();
+    $('#check').text('STOP');
+    animation = 'start';
+    renderBackground();
+    renderInterval(100);
+  }
+})
 
 function timeOfDay() {
-  var date = new Date();
-  return {
-    day: date.getDate(),
-    month: date.getMonth() + 1,
-    hour: date.getHours(),
-    minute: date.getMinutes()
+  switch (animation) {
+    case 'stop':
+      var date = new Date();
+      return {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        hour: date.getHours(),
+        minute: date.getMinutes()
+      }
+      break;
+    case 'start':
+      var date = new Date();
+      console.log(testHour + ' ' + testMinute);
+      return {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        minute: testMinute,
+        hour: testHour
+      }
+      break;
+    default:
+
   }
 }
 
