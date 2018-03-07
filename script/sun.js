@@ -82,16 +82,6 @@ function active_bg() {
     })
 };
 
-
-function calc_month(month) {
-  month.forEach(function(element) {
-    var w = parseInt(element.w.slice(0, 2)) * 60 + (parseInt(element.w.slice(3, 5)));
-    var z = parseInt(element.z.slice(0, 2)) * 60 + (parseInt(element.z.slice(3, 5)));
-    var d = z - w;
-    console.log(d);
-  })
-}
-
 var dayLengthOfMonth = [
   [],
   [, 483, 485, 486, 487, 488, 490, 491, 493, 494, 497, 498, 500, 502, 504, 507, 508, 511, 513, 516, 518, 521, 523, 526, 529, 531, 534, 538, 540, 543, 546, 550],
