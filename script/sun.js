@@ -114,15 +114,69 @@ var sunrises = [
   [, '07:01', '07:03', '07:04', '07:05', '07:07', '07:08', '07:09', '07:10', '07:11', '07:13', '07:14', '07:15', '07:16', '07:17', '07:18', '07:18', '07:19', '07:20', '07:21', '07:21', '07:22', '07:23', '07:23', '07:24', '07:24', '07:24', '07:25', '07:25', '07:25', '07:25', '07:25']
 ]
 
-function timeOfDay () {
+var interval = 180000;
+var timeOfInterval = ( interval / 60 ) / 1000;
+
+function timeOfDay() {
   var date = new Date();
   return {
     day: date.getDate(),
-    month: date.getMonth()+1,
+    month: date.getMonth() + 1,
     hour: date.getHours(),
     minute: date.getMinutes()
   }
 }
+
+function calculatingTheNumberOfTheDisplayedImage() {
+  //dłogosc dnia w minutach
+  var todayDayLength = dayLengthOfMonth[timeOfDay().month][timeOfDay().day];
+  //wschod slonca w minutach od polnocy
+  var timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0,2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3,5));
+  //długosc dnia dla jednego obrazka w minutach
+  var lengthTimeForImage = todayDayLength / 10;
+  //o ile ma zmienic sie opacity dla interwalu, bez jednostki
+  var pieceOfOpacity = 1 / (lengthTimeForImage / timeOfInterval);
+  //obecny czas w minutach
+  var presentTime = (timeOfDay().hour * 60) + (timeOfDay().minute);
+  //obecny czas w minutach liczony od wschodu slonca
+  var presentTimeFromSunrise = presentTime - timeOfSunrise;
+  //wybiera numer obrazka i generuje jego sciezke
+  function imageForTimeOfDay() {
+    var numerOfImage = Math.floor(presentTimeFromSunrise / lengthTimeForImage);
+    var opacity = ((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity;
+    return {
+      srcUnder: (function() {return '../images/active_bg/' + (numerOfImage + 1) + '.jpg'})(),
+      srcAbove: (function() {return '../images/active_bg/' + numerOfImage + '.jpg'})(),
+      opacity
+    }
+  }
+  return imageForTimeOfDay();
+}
+
+
+//   if (0 -> lengthTimeForImage) {
+//
+//   } else if (lengthTimeForImage -> 2 * lengthTimeForImage) {
+//
+//   } else if (2 * lengthTimeForImage -> 3 * lengthTimeForImage) {
+//
+//   } else if (3 * lengthTimeForImage -> 4 * lengthTimeForImage) {
+//
+//   } else if (4 * lengthTimeForImage -> 5 * lengthTimeForImage) {
+//
+//   } else if (5 * lengthTimeForImage -> 6 * lengthTimeForImage) {
+//
+//   } else if (6 * lengthTimeForImage -> 7 * lengthTimeForImage) {
+//
+//   } else if (7 * lengthTimeForImage -> 8 * lengthTimeForImage) {
+//
+//   } else if (8 * lengthTimeForImage -> 9 * lengthTimeForImage) {
+//
+//   } else if (9 * lengthTimeForImage -> 10 * lengthTimeForImage) {
+//
+//   }
+
+
 //
 // switch (timeOfDay) {
 //   case
