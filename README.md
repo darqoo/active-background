@@ -1,9 +1,10 @@
 # agrotix
-Web page for my friend
+New awesome active background
 
 ## Dariusz Smoląg
 
-This is web page project for small company on Eastern Poland
+The background varies depending on the time of day.
+
 
 ### First step
 
