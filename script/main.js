@@ -1,6 +1,3 @@
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
   $("#loader_bg").fadeOut();
-});
-$(document).ready(function() {
-
 });
