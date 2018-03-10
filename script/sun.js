@@ -128,15 +128,12 @@ function imageForTimeOfDay() {
     }
   } else if (presentTime >= (timeOfSunrise + todayDayLength) && presentTime <= (timeOfSunrise + todayDayLength + 30)) {
     return {
-      srcUnder: (function() {
-        return 'url(\'./images/active_bg/11.jpg\')'
-      })(),
-      srcAbove: (function() {
-        return 'url(\'./images/active_bg/10.jpg\')'
-      })(),
-      opacity: (function() {
-        return (30 - (presentTime - timeOfSunrise - todayDayLength)) / 30
-      })()
+      srcUnder: (() => `url('./images/active_bg/11.jpg')`
+      )(),
+      srcAbove: (() => `url('./images/active_bg/10.jpg')`
+      )(),
+      opacity: (() => (30 - (presentTime - timeOfSunrise - todayDayLength)) / 30
+      )()
     }
   } else if (presentTime >= (timeOfSunrise + todayDayLength + 30) && presentTime <= (timeOfSunrise + todayDayLength + 30 + 60)) {
     return {
