@@ -5,7 +5,10 @@ New awesome active background
 
 The background varies depending on the time of day.
 
+If you click the button, you can speed up the animation.
+
+In the console you will see the current time for the accelerated animation.
 
 ### First step
 
-[Agrotix](https://darqoo.github.io/agrotix/)
+[Try](https://darqoo.github.io/agrotix/)
