@@ -23,8 +23,6 @@ var renderInterval = (i) => {
   }, i);
 }
 
-// renderInterval(180000);
-
 $('#check').click(() => {
   if (animation == 'start') {
     $('#check').text('Check it out');
@@ -40,7 +38,7 @@ $('#check').click(() => {
   }
 })
 
-var timeOfDay = () => {
+function timeOfDay() {
   switch (animation) {
     case 'stop':
       var date = new Date();
@@ -66,7 +64,7 @@ var timeOfDay = () => {
   }
 }
 
-var imageForTimeOfDay = () => {
+function imageForTimeOfDay() {
 
   let timeOfInterval = (interval / 60) / 1000;
 
@@ -172,7 +170,7 @@ var imageForTimeOfDay = () => {
   }
 }
 
-var renderBackground = () => {
+function renderBackground() {
   $('#bg_1').css({
     'background-image': imageForTimeOfDay().srcAbove,
     'opacity': imageForTimeOfDay().opacity
