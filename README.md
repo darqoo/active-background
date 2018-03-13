@@ -3,7 +3,7 @@ New awesome active background
 
 ## Dariusz Smoląg
 
-The background varies depending on the time of day.
+The background varies depending on the time of the day.
 
 If you click the button, you can speed up the animation.
 
