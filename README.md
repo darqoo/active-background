@@ -1,4 +1,4 @@
-# agrotix
+# active-background
 New awesome active background
 
 ## Dariusz Smoląg
@@ -11,4 +11,4 @@ In the console you will see the current time for the accelerated animation.
 
 ### First step
 
-[Try](https://darqoo.github.io/agrotix/)
+[Try](https://darqoo.github.io/active-background/)
