@@ -101,19 +101,19 @@ function imageForTimeOfDay() {
     [, '06:13', '06:14', '06:16', '06:18', '06:20', '06:21', '06:23', '06:25', '06:26', '06:28', '06:30', '06:31', '06:33', '06:35', '06:36', '06:38', '06:40', '06:41', '06:43', '06:45', '06:46', '06:48', '06:49', '06:51', '06:52', '06:54', '06:56', '06:57', '06:58', '07:00'],
     [, '07:01', '07:03', '07:04', '07:05', '07:07', '07:08', '07:09', '07:10', '07:11', '07:13', '07:14', '07:15', '07:16', '07:17', '07:18', '07:18', '07:19', '07:20', '07:21', '07:21', '07:22', '07:23', '07:23', '07:24', '07:24', '07:24', '07:25', '07:25', '07:25', '07:25', '07:25']
   ]
-  //dłogosc dnia w minutach
+  //length of the day in minutes
   let todayDayLength = dayLengthOfMonth[timeOfDay().month][timeOfDay().day];
-  //wschod slonca w minutach od polnocy
+  //sunrise in minutes measured from midnight
   let timeOfSunrise = parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(0, 2)) * 60 + parseInt(sunrises[timeOfDay().month][timeOfDay().day].slice(3, 5));
-  //długosc dnia dla jednego obrazka w minutach
+  //length of the day for one picture in minutes
   let lengthTimeForImage = todayDayLength / 9;
-  //o ile ma zmienic sie opacity dla interwalu, bez jednostki
+  //how much will opacity change for interval, whithout unit
   let pieceOfOpacity = 1 / (lengthTimeForImage / timeOfInterval);
-  //obecny czas w minutach
+  //present time in minutes
   let presentTime = (timeOfDay().hour * 60) + (timeOfDay().minute);
-  //obecny czas w minutach liczony od wschodu slonca
+  //present time in minutes measured from sunrise
   let presentTimeFromSunrise = presentTime - timeOfSunrise;
-  //wybiera numer obrazka i generuje jego sciezke
+  //selects the image number and generates its path
   let numberOfImage = presentTimeFromSunrise < lengthTimeForImage && presentTimeFromSunrise >= 0 ? 1 : (Math.floor(presentTimeFromSunrise / lengthTimeForImage)) + 1;
   let opacity = 1 - (((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity);
   if (presentTime >= timeOfSunrise && presentTime <= (timeOfSunrise + todayDayLength)) {
