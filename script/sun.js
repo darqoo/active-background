@@ -113,8 +113,9 @@ function imageForTimeOfDay() {
   let presentTime = (timeOfDay().hour * 60) + (timeOfDay().minute);
   //present time in minutes measured from sunrise
   let presentTimeFromSunrise = presentTime - timeOfSunrise;
-  //selects the image number and generates its path
+  //selection of the image number and the generation of its path
   let numberOfImage = presentTimeFromSunrise < lengthTimeForImage && presentTimeFromSunrise >= 0 ? 1 : (Math.floor(presentTimeFromSunrise / lengthTimeForImage)) + 1;
+
   let opacity = 1 - (((presentTimeFromSunrise % lengthTimeForImage) / timeOfInterval) * pieceOfOpacity);
   if (presentTime >= timeOfSunrise && presentTime <= (timeOfSunrise + todayDayLength)) {
     return {
