@@ -18,10 +18,12 @@ renderBackground();
 
 var renderInterval = (i) => {
   clearInterval(renderInterval);
-  let renderInterval = setInterval(() => {
+  var renderInterval = setInterval(() => {
     renderBackground();
   }, i);
 }
+
+renderInterval(180000);
 
 $('#check').click(() => {
   if (animation == 'start') {
